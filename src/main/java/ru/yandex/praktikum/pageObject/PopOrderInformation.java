@@ -8,16 +8,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class PopOrderInformation {
-    private final WebDriver DRIVER;
+    private final WebDriver driver;
     //текст с информацией о заказе
-    private final By CONFIRM_ORDER_TITLE = By.xpath(".//*[text()='Заказ оформлен']");
+    private final By confirmOrderTitle = By.xpath(".//*[text()='Заказ оформлен']");
 
     public PopOrderInformation (WebDriver driver){
-        this.DRIVER = driver;
+        this.driver = driver;
     }
 
     public String getConfirmTitle(){
-        new WebDriverWait(DRIVER, Duration.ofSeconds(3)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(CONFIRM_ORDER_TITLE));
-        return DRIVER.findElement(CONFIRM_ORDER_TITLE).getText();
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(confirmOrderTitle));
+        return driver.findElement(confirmOrderTitle).getText();
     }
 }

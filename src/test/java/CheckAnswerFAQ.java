@@ -12,13 +12,14 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class CheckAnswerFAQ {
+    public static final String URL = "https://qa-scooter.praktikum-services.ru/";
     private WebDriver driver = null;
-    private final int QUESTION_NUMBER;
-    private final String QUESTION_ANSWER;
+    private final int questionNumber;
+    private final String questionAnswer;
 
     public CheckAnswerFAQ(int questionNumber, String questionAnswer){
-        this.QUESTION_NUMBER = questionNumber;
-        this.QUESTION_ANSWER = questionAnswer;
+        this.questionNumber = questionNumber;
+        this.questionAnswer = questionAnswer;
     }
 
     @Parameterized.Parameters
@@ -50,7 +51,7 @@ public class CheckAnswerFAQ {
     @Before
     public void setUp(){
         driver = createWebDriver("chrome");
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(URL);
         driver.manage().window().maximize();
     }
 
@@ -65,8 +66,8 @@ public class CheckAnswerFAQ {
         HomePage objHomePage = new HomePage(driver);
         objHomePage.waitingLoadPage();
         objHomePage.clickCookieButton();
-        objHomePage.clickListElement(QUESTION_NUMBER);
-        assertEquals( "В ответе №" + Integer.toString(QUESTION_NUMBER+1) + " ошибка", QUESTION_ANSWER, objHomePage.getAnswerText(QUESTION_NUMBER));
+        objHomePage.clickListElement(questionNumber);
+        assertEquals( "В ответе №" + Integer.toString(questionNumber +1) + " ошибка", questionAnswer, objHomePage.getAnswerText(questionNumber));
 
     }
 

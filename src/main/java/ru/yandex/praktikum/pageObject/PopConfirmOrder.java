@@ -8,16 +8,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class PopConfirmOrder {
-    private final WebDriver DRIVER;
+    private final WebDriver driver;
     //Кнопка Да
-    private final By BUTTON_YES = By.xpath(".//button[text()='Да']");
+    private final By buttonYes = By.xpath(".//button[text()='Да']");
 
     public PopConfirmOrder(WebDriver driver){
-        this.DRIVER = driver;
+        this.driver = driver;
     }
     public void  clickYes(){
-        new WebDriverWait(DRIVER, Duration.ofSeconds(2)).until(ExpectedConditions.visibilityOfElementLocated(BUTTON_YES));
-        DRIVER.findElement(BUTTON_YES).click();
+        new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.visibilityOfElementLocated(buttonYes));
+        driver.findElement(buttonYes).click();
     }
 
 }

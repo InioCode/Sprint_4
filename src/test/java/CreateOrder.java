@@ -11,34 +11,33 @@ import ru.yandex.praktikum.pageObject.*;
 
 @RunWith(Parameterized.class)
 public class CreateOrder {
+    public static final String URL = "https://qa-scooter.praktikum-services.ru/";
     private WebDriver driver = null;
-    private final String NAME;
-    private final String SECOND_NAME;
-    private final String ADDRESS;
-    private final String PHONE;
-    private final int AFTER_DAYS;
-    private final String COLOR;
-    private final String COMMENT;
-    private final String ORDER_BUTTON;
+    private final String name;
+    private final String secondName;
+    private final String address;
+    private final String phone;
+    private final int afterDays;
+    private final String color;
+    private final String comment;
 
 
 
-    public CreateOrder(String orderButton, String name, String secondName, String address, String phone, int afterDays, String color, String comment){
-        this.ORDER_BUTTON = orderButton;
-        this.NAME = name;
-        this.SECOND_NAME = secondName;
-        this.ADDRESS = address;
-        this.PHONE = phone;
-        this.AFTER_DAYS = afterDays;
-        this.COLOR = color;
-        this.COMMENT = comment;
+    public CreateOrder(String name, String secondName, String address, String phone, int afterDays, String color, String comment){
+        this.name = name;
+        this.secondName = secondName;
+        this.address = address;
+        this.phone = phone;
+        this.afterDays = afterDays;
+        this.color = color;
+        this.comment = comment;
 
     }
     @Parameterized.Parameters
     public static Object[][] getOrderInformation() {
         return new Object[][]{
-                {"header", "Иван","Иванов","Мира 11","89995553322",3,"black","Test comment"},
-                {"middle", "Петр","Петрович","Азина 26","89994441122",5,"grey","no comment"}
+                {"Иван","Иванов","Мира 11","89995553322",3,"black","Test comment"},
+                {"Петр","Петрович","Азина 26","89994441122",5,"grey","no comment"}
         };
     }
 
@@ -56,7 +55,7 @@ public class CreateOrder {
     @Before
     public void setUp(){
         driver = createWebDriver("chrome");
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(URL);
         driver.manage().window().maximize();
     }
 
@@ -76,19 +75,13 @@ public class CreateOrder {
         objHomePage.waitingLoadPage();
         objHomePage.clickCookieButton();
 
-        if (ORDER_BUTTON.equalsIgnoreCase("header")){
-            objHomePage.clickHeaderButton();
-        } else if (ORDER_BUTTON.equalsIgnoreCase("middle")) {
-            objHomePage.clickMiddleButton();
-        } else {
-            System.out.println("Кнопка не найдена");
-        }
+        objHomePage.clickHeaderButton();
 
         objFormPersonalData.waitingLoadPage();
-        objFormPersonalData.setInputs(NAME,SECOND_NAME,ADDRESS,PHONE);
+        objFormPersonalData.setInputs(name, secondName, address, phone);
         objFormPersonalData.clickButtonNext();
 
-        objPageAboutOrder.setInputs(AFTER_DAYS,COLOR, COMMENT);
+        objPageAboutOrder.setInputs(afterDays, color, comment);
         objPageAboutOrder.clickOrderButton();
 
         objPageConfirmOrder.clickYes();

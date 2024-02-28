@@ -9,50 +9,50 @@ import java.util.concurrent.TimeUnit;
 
 
 public class HomePage {
-    private final WebDriver DRIVER;
+    private final WebDriver driver;
     //Элементы списка (AccordionItem)
-    private final By LIST_ELEMENTS = By.className("accordion__button");//Выдается 8 шт
+    private final By listElements = By.className("accordion__button");//Выдается 8 шт
     //Текст внутри элемента списка
-    private final By ANSWER_TEXT = By.xpath("(.//*[@class='accordion__item']/div/p)");//Выдается 8 шт
+    private final By answerText = By.xpath("(.//*[@class='accordion__item']/div/p)");//Выдается 8 шт
     //Кнопка Заказать вверху страницы
-    private final By ORDER_BUTTON_IN_HEADER = By.className("Button_Button__ra12g");
+    private final By orderButtonInHeader = By.className("Button_Button__ra12g");
     //Кнопка Заказать внизу страницы
-    private final By ORDER_BUTTON_IN_MIDDLE = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
+    private final By orderButtonInMiddle = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
 
     //Подтверждение Cookie
-    private final By BUTTON_COOKIE = By.id("rcc-confirm-button");
+    private final By buttonCookie = By.id("rcc-confirm-button");
     public HomePage(WebDriver driver){
-        this.DRIVER = driver;
+        this.driver = driver;
     }
 
     public void waitingLoadPage(){
-        DRIVER.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     public void clickListElement(int numberElement){
-        List<WebElement> elements = DRIVER.findElements(LIST_ELEMENTS);
+        List<WebElement> elements = driver.findElements(listElements);
         WebElement element = elements.get(numberElement);
-        ((JavascriptExecutor) DRIVER).executeScript("arguments[0].scrollIntoView();", element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
         element.click();
     }
 
     public String getAnswerText(int numberElement){
-        List<WebElement> elements = DRIVER.findElements(ANSWER_TEXT);
+        List<WebElement> elements = driver.findElements(answerText);
         WebElement element = elements.get(numberElement);
-        ((JavascriptExecutor) DRIVER).executeScript("arguments[0].scrollIntoView();", element);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
         return element.getText();
     }
 
     public void clickHeaderButton(){
-        DRIVER.findElement(ORDER_BUTTON_IN_HEADER).click();
+        driver.findElement(orderButtonInHeader).click();
     }
 
     public void clickMiddleButton(){
-        DRIVER.findElement(ORDER_BUTTON_IN_MIDDLE).click();
+        driver.findElement(orderButtonInMiddle).click();
     }
 
     public void clickCookieButton(){
-        DRIVER.findElement(BUTTON_COOKIE).click();
+        driver.findElement(buttonCookie).click();
     }
 
 }
